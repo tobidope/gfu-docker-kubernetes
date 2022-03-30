@@ -1,0 +1,8 @@
+
+FROM gedoplan-seminar/ctr-demo-jdk
+
+COPY ./target/lib/ /opt/java/app/lib
+COPY ./target/classes/ /opt/java/app/classes
+
+ENTRYPOINT [ "java", "-cp", "/opt/java/app/classes:/opt/java/app/lib/*", "com.kumuluz.ee.EeApplication" ]
+

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>de.gedoplan</groupId>
+    <artifactId>build-master</artifactId>
+    <version>2020.9.1</version>
+    <relativePath />
+  </parent>
+
+  <groupId>de.gedoplan.edumat.trainer</groupId>
+  <artifactId>trainer</artifactId>
+  <version>2022.03.29_GFU_ONLINE_CTR-001</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <!-- Java-Version als Minimum für die Build-Umgebung und als Source- und Target-Version -->
+    <java.code.version>1.8</java.code.version>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>gedoplanPublic</id>
+      <url>https://service.gedoplan.de/nexus/content/groups/public</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>gedoplanPublic</id>
+      <url>https://service.gedoplan.de/nexus/content/groups/public</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <build>
+    <defaultGoal>install</defaultGoal>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <modules>
+    <module>ctr-demo-hello</module>
+    <module>ctr-demo-jdk</module>
+    <module>ctr-demo-rest</module>
+    <module>ctr-exercise-galleon</module>
+    <module>ctr-exercise-rest</module>
+    <module>ctr-exercise-wildfly</module>
+    <module>ctr-infra</module>
+  </modules>
+
+  <!--
+    Hier folgen von der JDK-Version abhängige Profile, die die Liste der Module
+    um solche ergänzen, die erst ab einer bestimmten Java-Version compile-fähig sind.
+    Diese Profile dürfen durch edumat:assemble nicht in die trainer/student-Projekte
+    kopiert werden; vielmehr kommen dort alle im Kurs genutzten Module in die
+    allegemeine Modulliste (oben).
+  -->
+  
+</project>

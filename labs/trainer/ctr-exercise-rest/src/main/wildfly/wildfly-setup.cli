@@ -1,0 +1,17 @@
+embed-server
+
+# Allow property expressions in descriptors (e. g. persistence.xml)
+/subsystem=ee:write-attribute(name=spec-descriptor-property-replacement, value=true)
+/subsystem=ee:write-attribute(name=jboss-descriptor-property-replacement, value=true)
+
+# Add MP Health extension and subsystem, if not present
+if (outcome != success) of /extension=org.wildfly.extension.microprofile.health-smallrye:read-resource
+  /extension=org.wildfly.extension.microprofile.health-smallrye:add
+  /subsystem=microprofile-health-smallrye:add(security-enabled=false)
+end-if
+
+# Set MP Health status to DOWN, if no checks are present
+/subsystem=microprofile-health-smallrye:write-attribute(name=empty-liveness-checks-status, value=${env.MP_HEALTH_EMPTY_LIVENESS_CHECKS_STATUS:DOWN})
+/subsystem=microprofile-health-smallrye:write-attribute(name=empty-readiness-checks-status, value=${env.MP_HEALTH_EMPTY_READINESS_CHECKS_STATUS:DOWN})
+
+stop-embedded-server

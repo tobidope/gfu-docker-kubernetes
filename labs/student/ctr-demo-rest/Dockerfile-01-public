@@ -1,0 +1,6 @@
+FROM openjdk:11.0.3
+
+COPY target/lib/ /opt/java/app/lib
+COPY target/classes/ /opt/java/app/classes
+
+ENTRYPOINT [ "java", "-cp", "/opt/java/app/classes:/opt/java/app/lib/*", "com.kumuluz.ee.EeApplication" ]

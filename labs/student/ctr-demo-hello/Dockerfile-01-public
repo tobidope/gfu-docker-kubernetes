@@ -1,0 +1,5 @@
+FROM docker.io/gedoplan-seminar/ctr-demo-jdk
+
+COPY target/ctr-demo-hello.jar /opt/ctr-demo-hello.jar
+
+ENTRYPOINT ["java", "-jar", "/opt/ctr-demo-hello.jar"]

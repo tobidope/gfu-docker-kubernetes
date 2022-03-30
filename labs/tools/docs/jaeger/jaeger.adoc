@@ -1,0 +1,20 @@
+[separator=::]
+= Jaeger: Collector für OpenTracing
+
+:toc: left
+:imagesdir: ./images
+
+:version: 1.22
+
+== Überblick
+Jaeger ist ein sog. Tracing Collector, der sog. Spans und Traces von Anwendungen nach dem Standard _OpenTracing_ annimmt, zeitlich korreliert und ein einfaches Web-UI dazu anbietet.
+
+Sie finden Details zu Jaeger und zur Konfiguration hier: https://www.jaegertracing.io/.
+
+== Demo-Instanz im Docker Container
+
+Im Verzeichnis `docker-compose\jaeger` befindet sich die Datei `docker-compose.yaml`. 
+Damit kann eine Jaeger-Demo-Instanz gestartet werden - eine Docker-Installation vorausgesetzt - indem im genannten Verzeichnis der Befehl `docker-compose up -d` ausgeführt wird.
+Zum Stoppen der Instanz später bitte `docker-compose down` laufen lassen.
+
+Das UI der Demo-Instanz können Sie im Browser unter http://localhost:16686 öffnen.

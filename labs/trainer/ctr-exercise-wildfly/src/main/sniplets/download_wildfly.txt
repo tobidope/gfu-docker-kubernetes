@@ -1,0 +1,10 @@
+# Befehle zum Herunterladen und Installieren eines WildFly
+# Statt ${WILDFLY_VERSION} passende Version einsetzen und Download-URL überprüfen (vgl. https://www.wildfly.org/downloads/)
+# Die u. a. URL passt ab Version 25
+
+apt-get update && \
+apt-get install -y curl && \
+mkdir -p /opt/jboss && \
+cd /opt/jboss && \
+curl -L https://github.com/wildfly/wildfly/releases/download/${WILDFLY_VERSION}/wildfly-${WILDFLY_VERSION}.tar.gz | tar xzf - && \
+mv wildfly-${WILDFLY_VERSION} wildfly

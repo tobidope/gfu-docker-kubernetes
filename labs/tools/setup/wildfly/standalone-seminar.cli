@@ -1,0 +1,51 @@
+embed-server --server-config=standalone-full.xml --std-out=discard
+
+# Set deployment scanner interval to 1 s
+/subsystem=deployment-scanner/scanner=default:write-attribute(name=scan-interval, value=1000)
+
+# Add datasource for seminar demos and exercises
+if (outcome != success) of /subsystem=datasources/data-source=seminar:read-resource
+  /subsystem=datasources/data-source=seminar:add(jndi-name=java:/jdbc/seminar, connection-url="jdbc:h2:~/h2/seminar;AUTO_SERVER=TRUE", driver-name=h2, user-name=seminar, password=seminar)
+end-if
+
+# Add messaging destinations for seminar demos and exercises
+if (outcome != success) of /subsystem=messaging-activemq/server=default/jms-queue=SeminarQueue:read-resource
+  /subsystem=messaging-activemq/server=default/jms-queue=SeminarQueue:add(entries=[java:/jms/queue/seminar,java:jboss/exported/jms/queue/seminar])
+end-if
+if (outcome != success) of /subsystem=messaging-activemq/server=default/jms-topic=SeminarTopic:read-resource
+  /subsystem=messaging-activemq/server=default/jms-topic=SeminarTopic:add(entries=[java:/jms/topic/seminar,java:jboss/exported/jms/topic/seminar])
+end-if
+
+# Allow property expressions in descriptors (e. g. persistence.xml)
+/subsystem=ee:write-attribute(name=spec-descriptor-property-replacement, value=true)
+/subsystem=ee:write-attribute(name=jboss-descriptor-property-replacement, value=true)
+
+# Add MP Health extension and subsystem, if not present
+if (outcome != success) of /extension=org.wildfly.extension.microprofile.health-smallrye:read-resource
+  /extension=org.wildfly.extension.microprofile.health-smallrye:add
+  /subsystem=microprofile-health-smallrye:add(security-enabled=false)
+end-if
+
+# Set MP Health status to DOWN, if no checks are present
+/subsystem=microprofile-health-smallrye:write-attribute(name=empty-liveness-checks-status, value=${env.MP_HEALTH_EMPTY_LIVENESS_CHECKS_STATUS:DOWN})
+/subsystem=microprofile-health-smallrye:write-attribute(name=empty-readiness-checks-status, value=${env.MP_HEALTH_EMPTY_READINESS_CHECKS_STATUS:DOWN})
+
+# Add MP Fault Tolerance extension and subsystem, if not present
+if (outcome != success) of /extension=org.wildfly.extension.microprofile.fault-tolerance-smallrye:read-resource
+  /extension=org.wildfly.extension.microprofile.fault-tolerance-smallrye:add
+  /subsystem=microprofile-fault-tolerance-smallrye:add
+end-if
+
+# Add MP Metrics extension and subsystem, if not present
+if (outcome != success) of /extension=org.wildfly.extension.microprofile.metrics-smallrye:read-resource
+  /extension=org.wildfly.extension.microprofile.metrics-smallrye:add
+  /subsystem=microprofile-metrics-smallrye:add(security-enabled=false)
+end-if
+
+# Add MP Open API extension and subsystem, if not present
+if (outcome != success) of /extension=org.wildfly.extension.microprofile.openapi-smallrye:read-resource
+  /extension=org.wildfly.extension.microprofile.openapi-smallrye:add
+  /subsystem=microprofile-openapi-smallrye:add
+end-if
+
+stop-embedded-server

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rest-demo-db
+spec:
+  volumeClaimTemplates:
+    - metadata:
+        name: test-db
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
+  template:
+    spec:
+      containers:
+      - name:  db
+        volumeMounts:
+          - mountPath: /var/lib/postgresql/data
+            name: test-db

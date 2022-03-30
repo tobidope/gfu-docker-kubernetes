@@ -1,0 +1,28 @@
+[separator=::]
+= MariaDB: Treiber und Verbindungsparameter für die Seminardatenbank
+
+:toc: left
+:imagesdir: ./images
+
+:version: 2.7.4
+
+== Download des Treibers
+Der Treiber für die MariaDB-Datenbank ist das File `mariadb-java-client-{version}.jar`-File, das als Maven Dependency `org.mariadb.jdbc:mariadb-java-client:{version}` aus Maven Central heruntergeladen werden kann.
+
+TIP: Bei Seminaren, die dieses Tool benötigen, wird der Download durch den Aufruf von `mvn`  im Verzeichnis `labs` bereits durchgeführt, d. h. das erwähnte File finden Sie dann im Verzeichnis `tools\target`.
+
+== Verbindungsparameter
+Wir benutzen im Seminar eine Datenbank namens `seminar`. Für den Aufbau einer Verbindung zu dieser Datenbank werden die folgenden Verbindungsparameter benötigt:
+
+Driver:: `org.mariadb.jdbc.Driver` +
+Dazu muss sich das heruntergeladene `.jar`-File im Classpath befinden.
+In den Demo- und Übungsprojekten mit DB-Zugriff kann dies durch Aktivierung des Maven-Profils `db_mariadb` erreicht werden.
+URL:: `jdbc:mariadb://localhost:3306/seminar`
+User:: `seminar`
+Password:: `seminar`
+
+== Demo-DB im Docker Container
+
+Im Verzeichnis `docker-compose\mariadb` befindet sich die Datei `docker-compose.yaml`. 
+Damit kann eine MariaDB-Demo-Instanz gestartet werden - eine Docker-Installation vorausgesetzt - indem im genannten Verzeichnis der Befehl `docker-compose up -d` ausgeführt wird.
+Zum Stoppen der Instanz später bitte `docker-compose down` laufen lassen.
