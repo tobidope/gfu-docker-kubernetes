@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ctr-excercise-rest
+spec:
+  selector:
+    matchLabels:
+      name: ctr-excercise-rest
+  template:
+    metadata:
+      labels:
+        name: ctr-excercise-rest
+    spec:
+      containers:
+      - image:  gedoplan-seminar/ctr-excercise-rest
+        name:  rest-excercise
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort:  8080
+          name:  pod-web

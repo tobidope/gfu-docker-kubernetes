@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ctr-excercise-rest
+spec:
+  selector:
+    name: ctr-excercise-rest
+  ports:
+  - port: 8080
+    targetPort: web
+    name: web
