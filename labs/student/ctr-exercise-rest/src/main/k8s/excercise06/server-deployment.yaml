@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ctr-excercise-rest
+spec:
+  selector:
+    matchLabels:
+      name: ctr-excercise-rest
+  template:
+    metadata:
+      labels:
+        name: ctr-excercise-rest
+    spec:
+      containers:
+      - image:  gedoplan-seminar/ctr-excercise-rest
+        name:  rest-excercise
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: MYSQL_SERVICE_HOST
+            value: mysql
+          - name: MYSQL_SERVICE_PORT
+            value: "3306"
+          - name: MYSQL_USER
+            value: demo
+          - name: MYSQL_PASSWORD
+            value: geheim
+          - name: MYSQL_DATABASE
+            value: demo?useSSL=false
+          - name: DATASOURCE
+            value: MySQLDS
+        ports:
+        - containerPort:  8080
+          name:  web
