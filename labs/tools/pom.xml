@@ -25,7 +25,7 @@
     <skip.visual-studio-code>true</skip.visual-studio-code>
     <!-- Versions of tools -->
     <version.derby>10.14.2.0</version.derby>
-    <version.h2>1.4.197</version.h2>
+    <version.h2>1.4.200</version.h2>
     <version.hsql>2.5.0</version.hsql>
     <version.ldap-browser>282</version.ldap-browser>
     <version.ldap-server>2017-09-04</version.ldap-server>
