@@ -29,7 +29,7 @@
     <version.hsql>2.5.0</version.hsql>
     <version.ldap-browser>282</version.ldap-browser>
     <version.ldap-server>2017-09-04</version.ldap-server>
-    <version.mariadb>2.7.4</version.mariadb>
+    <version.mariadb>2.7.15</version.mariadb>
     <version.mysql>8.0.27</version.mysql>
     <version.openliberty>22.0.0.1</version.openliberty>
     <version.payara>5.192</version.payara>
